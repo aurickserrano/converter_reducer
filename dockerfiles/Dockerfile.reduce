@@ -1,0 +1,25 @@
+# Dockerfile para o serviço de redução de resolução
+FROM python:3.8-slim
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Instala as dependências necessárias
+RUN apt-get update && \
+    apt-get install -y ghostscript && \
+    apt-get clean
+
+# Copia os arquivos necessários para o contêiner
+COPY requirements.txt requirements.txt
+COPY reduce_app.py reduce_app.py
+COPY reducers.py reducers.py
+COPY templates templates
+
+# Cria o diretório de uploads
+RUN mkdir -p /tmp/uploads
+
+# Instala as dependências do Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Comando para rodar a aplicação
+CMD ["python", "reduce_app.py"]

@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  convert_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.convert
+    container_name: convert_service
+    volumes:
+      - .:/app
+      - /tmp/uploads:/tmp/uploads
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - log_service
+
+  reduce_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.reduce
+    container_name: reduce_service
+    volumes:
+      - .:/app
+      - /tmp/uploads:/tmp/uploads
+    working_dir: /app
+    ports:
+      - "5001:5001"
+    depends_on:
+      - log_service
+
+  log_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.log
+    container_name: log_service
+    volumes:
+      - .:/app
+    ports:
+      - "5002:5002"

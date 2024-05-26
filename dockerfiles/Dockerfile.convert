@@ -1,0 +1,25 @@
+# Dockerfile para o serviço de conversão
+FROM python:3.8-slim
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Instala as dependências necessárias
+RUN apt-get update && \
+    apt-get install -y poppler-utils && \
+    apt-get clean
+
+# Copia os arquivos necessários para o contêiner
+COPY requirements.txt requirements.txt
+COPY convert_app.py convert_app.py
+COPY converts.py converts.py
+COPY templates templates
+
+# Cria o diretório de uploads
+RUN mkdir -p /tmp/uploads
+
+# Instala as dependências do Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Comando para rodar a aplicação
+CMD ["python", "convert_app.py"]

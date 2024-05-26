@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Services</title>
+</head>
+<body>
+    <h1>PDF Services</h1>
+    
+    <h2>Convert PDF to TXT</h2>
+    <form action="http://localhost:5000/convert/convert_to_txt" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="hidden" name="token" value="secrettoken">
+        <input type="submit" value="Convert">
+    </form>
+
+    <h2>Reduce PDF Resolution</h2>
+    <form action="http://localhost:5001/reduce/reduce_resolution" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <label for="resolution">Resolution:</label>
+        <select name="resolution" required>
+            <option value="screen">Screen</option>
+            <option value="ebook">Ebook</option>
+            <option value="printer">Printer</option>
+            <option value="prepress">Prepress</option>
+        </select>
+        <input type="hidden" name="token" value="secrettoken">
+        <input type="submit" value="Reduce">
+    </form>
+</body>
+</html>

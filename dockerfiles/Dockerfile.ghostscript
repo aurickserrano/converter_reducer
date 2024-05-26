@@ -1,0 +1,7 @@
+FROM alpine:latest
+
+RUN apk --no-cache add ghostscript
+
+WORKDIR /app
+
+CMD ["sh", "-c", "while true; do sleep 1000; done"]
